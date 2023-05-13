@@ -1,5 +1,6 @@
 {
   "name": "silky_mocha",
+  "type": "module",
   "version": "0.1.0",
   "description": "Lightweight, ES5 friendly test framework targeting the Silk browser",
   "bin": {
@@ -9,5 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andrew Beck",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "rollup": "^3.21.7",
+    "yargs": "^17.7.2"
+  }
 }
