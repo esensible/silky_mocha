@@ -2,7 +2,9 @@
   "name": "silky_mocha",
   "version": "0.1.0",
   "description": "Lightweight, ES5 friendly test framework targeting the Silk browser",
-  "main": "index.js",
+  "bin": {
+    "silky_mocha": "src/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
