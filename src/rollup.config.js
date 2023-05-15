@@ -1,11 +1,6 @@
 import babel from '@rollup/plugin-babel';
-import html from '@rollup/plugin-html';
 import resolve from '@rollup/plugin-node-resolve';
-
-function uuid(length) {
-  return Array.from({ length }, () => Math.random().toString(36)[2]).join('');
-}
-
+import presetEnv from '@babel/preset-env';
 
 export default {
   output: {
@@ -19,7 +14,7 @@ export default {
       babelHelpers: 'bundled',
       presets: [
         [
-          "@babel/preset-env",
+          presetEnv,
           {
             targets: {
                 browsers: ["last 2 versions", "IE 11"],
@@ -28,6 +23,5 @@ export default {
         ],
       ],
     }),
-    // html(),
   ]
 };

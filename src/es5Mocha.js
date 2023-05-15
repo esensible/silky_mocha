@@ -7,28 +7,32 @@ function describe(description, fn) {
   indent += '   ';
   fn();
   indent = indent.slice(0, -3);
-  log(indent + 'Completed: ' + description);
-  log(indent + 'Pass: ' + passCount);
-  log(indent + 'Fail: ' + failCount);
+  // log(indent + 'Completed: ' + description);
+  // log(indent + 'Pass: ' + passCount);
+  // log(indent + 'Fail: ' + failCount);
   // Reset counts for the next describe block
   passCount = 0;
   failCount = 0;
 }
 
 function it(msg, fn) {
-  try {
-    fn();
-    log(indent + '✔ ' + msg);
-    passCount++;
-  } catch (error) {
-    log(indent + '✖ ' + msg);
-    log(indent + '  ' + error);
-    failCount++;
-  }
+    try {
+      fn();
+      log(indent + '✔ ' + msg);
+      passCount++;
+    } catch (error) {
+      log(indent + '✖ ' + msg);
+      log(indent + '  ' + error);
+      if (error.stack) {
+        log(indent + '  Stack trace: ' + error.stack);
+      }
+      failCount++;
+    }
 }
 
 function strictEqual(actual, expected) {
   if (actual !== expected) {
+    log('Expected "' + expected + '" but got "' + actual + '"');
     throw new Error('Expected "' + expected + '" but got "' + actual + '"');
   }
 }
