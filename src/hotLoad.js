@@ -27,15 +27,31 @@ function loadScript(fileName) {
   document.body.appendChild(newScript);
 }
 
+function loadStyle(fileName) {
+  var oldStyle = document.getElementById("testStyle");
+  if (oldStyle) {
+    oldStyle.parentNode.removeChild(oldStyle);
+  }
+
+  var newStyle = document.createElement('link');
+  newStyle.id = "testStyle";
+  newStyle.href = fileName;
+  newStyle.rel = 'stylesheet';
+
+  document.head.appendChild(newStyle);
+}
+
 function pollServer() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', '/test', true);
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var response = JSON.parse(xhr.responseText);
-      var fileName = response.test;
       resetDOM();
-      loadScript(fileName);
+      if (typeof response.css !== "undefined") {
+        loadStyle(response.css);
+      }
+      loadScript(response.test);
     }
   };
   xhr.send();

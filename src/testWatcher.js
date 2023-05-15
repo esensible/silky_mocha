@@ -51,13 +51,22 @@ class TestWatcher extends EventEmitter {
         //     if (item.type === 'asset' && item.fileName.endsWith('.css')) {
         //       console.log('CSS file generated:', item.fileName);
         //     }
-        //   });          
-          this.emit('test', `.test/${file}`);
+        //   });
+          let fileDict = {
+            test: `.test/${file}`
+          };
+          output.forEach((item) => {
+            if (item.type === 'asset') {
+              let ext = item.fileName.split('.').pop();
+              fileDict[ext] = `.test/test/${item.fileName}`;
+            }
+          });
+          this.emit('test', fileDict);
         }
 
-        if (event.code === 'START') {
+        // if (event.code === 'START') {
         //   console.log(`Bundling ${file}...`);
-        }
+        // }
 
         if (event.code === 'ERROR') {
           console.error(`Error bundling ${file}:`, event.error);

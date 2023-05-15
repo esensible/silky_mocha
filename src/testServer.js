@@ -54,10 +54,14 @@ class TestServer extends EventEmitter {
   }
 
   sendTestToClients(testFile) {
-    console.log(`** ${testFile} **`)
-    const response = {
-      test: `/${testFile}?uuid=${this.uuid(4)}`,
-    };
+    console.log(`** ${testFile.test} **`)
+    const id = this.uuid(4);
+
+    let response = {};
+    for (let key in testFile) {
+      response[key] = `/${testFile[key]}?uuid=${id}`;
+    }
+
     this.clients.forEach((res) => {
       res.write(JSON.stringify(response));
       res.end();
