@@ -1,3 +1,13 @@
+function resetDOM() {
+    var elements = document.body.children;
+    for (var i = elements.length - 1; i >= 0; i--) {
+        var element = elements[i];
+        if (element.getAttribute('keep') !== 'true') {
+            document.body.removeChild(element);
+        }
+    }
+}
+
 function loadScript(fileName) {
   var oldScript = document.getElementById("testScript");
   if (oldScript) {
@@ -24,6 +34,7 @@ function pollServer() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var response = JSON.parse(xhr.responseText);
       var fileName = response.test;
+      resetDOM();
       loadScript(fileName);
     }
   };

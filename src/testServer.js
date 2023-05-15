@@ -16,7 +16,7 @@ class TestServer extends EventEmitter {
 
     // Serve static files from the `dist` directory in the user's project.
     // Assume the `dist` directory is in the current working directory.
-    this.app.use('/dist', express.static(path.join(process.cwd(), 'dist'), { etag: false, maxAge: 0 }));
+    this.app.use('/.test', express.static(path.join(process.cwd(), '.test'), { etag: false, maxAge: 0 }));
 
     this.app.get('/test', (req, res) => {
       // console.log('New client connected');
@@ -56,7 +56,7 @@ class TestServer extends EventEmitter {
   sendTestToClients(testFile) {
     console.log(`** ${testFile} **`)
     const response = {
-      test: `/dist/${testFile}?uuid=${this.uuid(4)}`,
+      test: `/${testFile}?uuid=${this.uuid(4)}`,
     };
     this.clients.forEach((res) => {
       res.write(JSON.stringify(response));

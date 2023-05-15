@@ -3,13 +3,19 @@ var passCount = 0;
 var failCount = 0;
 
 function describe(description, fn) {
-  log('\n' + indent + description);
-  indent += '   ';
-  fn();
-  indent = indent.slice(0, -3);
-  // log(indent + 'Completed: ' + description);
-  // log(indent + 'Pass: ' + passCount);
-  // log(indent + 'Fail: ' + failCount);
+  try {
+    log('\n' + indent + description);
+    indent += '   ';
+    fn();
+    indent = indent.slice(0, -3);
+    // log(indent + 'Completed: ' + description);
+    // log(indent + 'Pass: ' + passCount);
+    // log(indent + 'Fail: ' + failCount);
+  } catch (error) {
+    log(indent + '✖ OUTER SCOPE');
+    log(indent + '  ' + error);
+  }
+
   // Reset counts for the next describe block
   passCount = 0;
   failCount = 0;
