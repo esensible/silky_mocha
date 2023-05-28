@@ -49,3 +49,19 @@ function log(message) {
   xhr.setRequestHeader('Content-Type', 'text/plain');
   xhr.send(message);
 }
+
+window.onerror = function(message, source, lineno, colno, error) {
+  var info = "An error occurred: " + message;
+  info += "\nSource: " + source;
+  info += "\nLine Number: " + lineno;
+  info += "\nColumn Number: " + colno;
+
+  // Check if the browser supports error.stack and if so, add it to the info
+  if (error && error.stack) {
+      info += "\nStack trace: " + error.stack;
+  }
+
+  log(info);
+
+  return true; // If you return true, the error won't be reported in the console
+}
